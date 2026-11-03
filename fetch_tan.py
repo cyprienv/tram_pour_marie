@@ -235,8 +235,10 @@ def build_theorique(now):
         exact = {i for i, n in stop_name.items() if norm(n) == q}
         cand[key] = exact or {i for i, n in stop_name.items() if q in norm(n)}
         if not cand[key]:
-            raise RuntimeError(f"Aucun arrêt nommé « {c['arret']} » dans le GTFS")
-    all_cand = set().union(*cand.values())
+            warn(f"[{key}] aucun arrêt nommé « {c['arret']} » dans le GTFS (carte ignorée)")
+    all_cand = set().union(*cand.values()) if cand else set()
+    if not all_cand:
+        raise RuntimeError("Aucun des arrêts configurés n'existe dans le GTFS")
 
     # passages aux arrêts candidats + terminus de chaque trajet
     at, last = {}, {}
@@ -278,6 +280,8 @@ def build_theorique(now):
 
     result = {}
     for key, c in CARTES.items():
+        if not cand[key]:
+            continue
         qd = norm(c["destination"])
         quays, deps, seen_dest = set(), [], set()
         for tid, (line, service, head) in trips.items():
@@ -297,12 +301,16 @@ def build_theorique(now):
                         if now - 3600 <= e <= now + 30 * 3600:
                             deps.append([e, tid])
         if not quays:
-            raise RuntimeError(
-                f"[{key}] aucun trajet ligne {c['ligne']} vers « {c['destination']} » "
-                f"à « {c['arret']} ». Directions connues : {sorted(seen_dest)[:12]}")
+            names = sorted({stop_name[i] for i in cand[key]})
+            warn(f"[{key}] aucun trajet ligne {c['ligne']} vers « {c['destination']} » "
+                 f"à « {c['arret']} » (arrêts trouvés : {names}). "
+                 f"Directions connues : {sorted(seen_dest)[:12]} (carte ignorée)")
+            continue
         deps.sort()
         result[key] = {"quais": sorted(quays), "departs": deps}
         print(f"[{key}] quais={sorted(quays)} départs théoriques={len(deps)}")
+    if not result:
+        raise RuntimeError("Aucune carte exploitable : " + " | ".join(errors))
     return result
 
 
@@ -352,6 +360,7 @@ def main():
     fresh = (
         cache and old.get("theorique_cfg") == sig
         and now - old.get("theorique_built", 0) < CACHE_MAX_AGE
+        and set(cache) == set(CARTES)
         and all(v["departs"] and v["departs"][-1][0] > now + CACHE_MIN_HORIZON
                 for v in cache.values())
     )
@@ -381,7 +390,9 @@ def main():
 
     data = {}
     for key, c in CARTES.items():
-        info = cache[key]
+        info = cache.get(key)
+        if not info:
+            continue
         data[key] = merge(c["ligne"], info["departs"], updates, cancelled, seen,
                           set(info["quais"]), now)
         nrt = sum(1 for d in data[key] if d["rt"])
