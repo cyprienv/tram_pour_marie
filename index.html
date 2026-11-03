@@ -119,68 +119,68 @@ body {
 
 <main class="dashboard-grid">
 
-    <!-- Ligne 3 : Plaisance -> Neustrie -->
-    <section class="transit-card card-l3 card-tram-pl">
+    <!-- Ligne 3 : Félix Faure -> Neustrie -->
+    <section class="transit-card card-l3 card-tram-fn">
         <div class="card-header">
             <div class="line-info">
                 <div class="badge badge-l3">3</div>
                 <div class="destination-details">
                     <div class="destination-name">Neustrie</div>
-                    <div class="stop-point">Arrêt : Plaisance</div>
+                    <div class="stop-point">Arrêt : Félix Faure</div>
                 </div>
             </div>
-            <div class="status-badge" id="status-pl">Chargement...</div>
+            <div class="status-badge" id="status-fn">Chargement...</div>
         </div>
         <div class="siel-display">
-            <div class="passage-secondary" id="pl-sec-box">
+            <div class="passage-secondary" id="fn-sec-box">
                 <span class="passage-label">2e Passage</span>
                 <div class="secondary-time">
-                    <span id="pl-p2-min">--</span>
-                    <span class="secondary-unit" id="pl-p2-unit">min</span>
+                    <span id="fn-p2-min">--</span>
+                    <span class="secondary-unit" id="fn-p2-unit">min</span>
                 </div>
-                <div class="clock-times" id="pl-p2-time">--:--</div>
+                <div class="clock-times" id="fn-p2-time">--:--</div>
             </div>
-            <div class="divider" id="pl-divider"></div>
+            <div class="divider" id="fn-divider"></div>
             <div class="passage-primary">
                 <span class="passage-label" style="color: #cbd5e1;">Prochain Passage</span>
-                <div class="primary-time-wrapper" id="pl-p1-wrapper">
-                    <span class="primary-time realtime" id="pl-p1-min">--</span>
-                    <span class="primary-unit realtime" id="pl-p1-unit">min</span>
+                <div class="primary-time-wrapper" id="fn-p1-wrapper">
+                    <span class="primary-time realtime" id="fn-p1-min">--</span>
+                    <span class="primary-unit realtime" id="fn-p1-unit">min</span>
                 </div>
-                <div class="clock-times" id="pl-p1-time">--:--</div>
+                <div class="clock-times" id="fn-p1-time">--:--</div>
             </div>
         </div>
     </section>
 
-    <!-- Ligne 3 : Bretagne -> Marcel Paul -->
-    <section class="transit-card card-l3 card-tram-br">
+    <!-- Ligne 3 : Aimé Delrue -> Marcel Paul -->
+    <section class="transit-card card-l3 card-tram-ad">
         <div class="card-header">
             <div class="line-info">
                 <div class="badge badge-l3">3</div>
                 <div class="destination-details">
                     <div class="destination-name">Marcel Paul</div>
-                    <div class="stop-point">Arrêt : Bretagne</div>
+                    <div class="stop-point">Arrêt : Aimé Delrue</div>
                 </div>
             </div>
-            <div class="status-badge" id="status-br">Chargement...</div>
+            <div class="status-badge" id="status-ad">Chargement...</div>
         </div>
         <div class="siel-display">
-            <div class="passage-secondary" id="br-sec-box">
+            <div class="passage-secondary" id="ad-sec-box">
                 <span class="passage-label">2e Passage</span>
                 <div class="secondary-time">
-                    <span id="br-p2-min">--</span>
-                    <span class="secondary-unit" id="br-p2-unit">min</span>
+                    <span id="ad-p2-min">--</span>
+                    <span class="secondary-unit" id="ad-p2-unit">min</span>
                 </div>
-                <div class="clock-times" id="br-p2-time">--:--</div>
+                <div class="clock-times" id="ad-p2-time">--:--</div>
             </div>
-            <div class="divider" id="br-divider"></div>
+            <div class="divider" id="ad-divider"></div>
             <div class="passage-primary">
                 <span class="passage-label" style="color: #cbd5e1;">Prochain Passage</span>
-                <div class="primary-time-wrapper" id="br-p1-wrapper">
-                    <span class="primary-time realtime" id="br-p1-min">--</span>
-                    <span class="primary-unit realtime" id="br-p1-unit">min</span>
+                <div class="primary-time-wrapper" id="ad-p1-wrapper">
+                    <span class="primary-time realtime" id="ad-p1-min">--</span>
+                    <span class="primary-unit realtime" id="ad-p1-unit">min</span>
                 </div>
-                <div class="clock-times" id="br-p1-time">--:--</div>
+                <div class="clock-times" id="ad-p1-time">--:--</div>
             </div>
         </div>
     </section>
@@ -194,8 +194,8 @@ body {
 //  2. le flux GTFS-RT, lu directement par le navigateur (temps réel frais, sans passer par GitHub)
 // Si la lecture directe échoue (réseau, 429, CORS), on garde les données du JSON.
 // ---------------------------------------------------------------------------
-const CARDS = ['pl', 'br'];
-const DEFAULT_LIGNES = { pl: '3', br: '3' };
+const CARDS = ['fn', 'ad'];
+const DEFAULT_LIGNES = { fn: '3', ad: '3' };
 const RT_URL = new URLSearchParams(location.search).get('rt') ||
     'https://proxy.transport.data.gouv.fr/resource/naolib-nantes-gtfs-rt-trip-update';
 const JSON_STALE_MS = 15 * 60 * 1000;   // JSON du workflow considéré périmé au-delà
