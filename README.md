@@ -1,4 +1,4 @@
-# Départs Naolib — tram 3
+[# Départs Naolib — tram 3](https://cyprienv.github.io/Pauline-tram/)
 
 Le panneau affiche les prochains départs du tram 3 à Plaisance vers Neustrie,
 puis à Bretagne vers Marcel Paul. `fetch_tan.py` génère `horaires.json` avec
