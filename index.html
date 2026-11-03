@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panneau Tram 3 - Neustrie</title>
+<title>Panneau Temps Réel Naolib</title>
 <!-- Icônes pour les raccourcis Android / PWA -->
 <link rel="icon" type="image/svg+xml" href="Icone.svg">
 <link rel="apple-touch-icon" href="Icone.svg">
@@ -24,12 +24,13 @@ body {
 
 .dashboard-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: repeat(2, minmax(140px, 1fr));
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
     gap: 10px;
     flex: 1;
     width: 100%;
 }
+
 
 .transit-card {
     background-color: #141c2e;
@@ -49,12 +50,12 @@ body {
 .line-info { display: flex; align-items: center; gap: 12px; }
 
 .badge {
-    width: 48px; height: 42px; border-radius: 8px;
+    width: 42px; height: 42px; border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
     font-weight: 900; font-size: 1.6rem; color: #ffffff;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
-.badge-l3 { background-color: #009ee0; font-size: 1.3rem; }
+.badge-l3 { background-color: #009ee0; }
 
 .destination-details { display: flex; flex-direction: column; }
 .destination-name {
@@ -108,7 +109,7 @@ body {
 @media (max-width: 768px) {
     body { overflow-y: auto; }
     .dashboard-grid { display: flex; flex-direction: column; gap: 12px; }
-    .card-tram-l3, .card-tram-l3b { width: 100%; }
+    .transit-card { width: 100%; }
     .primary-time { font-size: 4.8rem; }
     .secondary-time { font-size: 1.5rem; }
 }
@@ -118,68 +119,68 @@ body {
 
 <main class="dashboard-grid">
 
-    <!-- Tram 3 : Plaisance -> Neustrie -->
-    <section class="transit-card card-l3 card-tram-l3">
+    <!-- Ligne 3 : Plaisance -> Neustrie -->
+    <section class="transit-card card-l3 card-tram-pl">
         <div class="card-header">
             <div class="line-info">
-                <div class="badge badge-l3">L3</div>
+                <div class="badge badge-l3">3</div>
                 <div class="destination-details">
                     <div class="destination-name">Neustrie</div>
                     <div class="stop-point">Arrêt : Plaisance</div>
                 </div>
             </div>
-            <div class="status-badge" id="status-l3">Chargement...</div>
+            <div class="status-badge" id="status-pl">Chargement...</div>
         </div>
         <div class="siel-display">
-            <div class="passage-secondary" id="l3-sec-box">
+            <div class="passage-secondary" id="pl-sec-box">
                 <span class="passage-label">2e Passage</span>
                 <div class="secondary-time">
-                    <span id="l3-p2-min">--</span>
-                    <span class="secondary-unit" id="l3-p2-unit">min</span>
+                    <span id="pl-p2-min">--</span>
+                    <span class="secondary-unit" id="pl-p2-unit">min</span>
                 </div>
-                <div class="clock-times" id="l3-p2-time">--:--</div>
+                <div class="clock-times" id="pl-p2-time">--:--</div>
             </div>
-            <div class="divider" id="l3-divider"></div>
+            <div class="divider" id="pl-divider"></div>
             <div class="passage-primary">
                 <span class="passage-label" style="color: #cbd5e1;">Prochain Passage</span>
-                <div class="primary-time-wrapper" id="l3-p1-wrapper">
-                    <span class="primary-time realtime" id="l3-p1-min">--</span>
-                    <span class="primary-unit realtime" id="l3-p1-unit">min</span>
+                <div class="primary-time-wrapper" id="pl-p1-wrapper">
+                    <span class="primary-time realtime" id="pl-p1-min">--</span>
+                    <span class="primary-unit realtime" id="pl-p1-unit">min</span>
                 </div>
-                <div class="clock-times" id="l3-p1-time">--:--</div>
+                <div class="clock-times" id="pl-p1-time">--:--</div>
             </div>
         </div>
     </section>
 
-    <!-- Tram 3 : Bretagne -> Marcel Paul -->
-    <section class="transit-card card-l3 card-tram-bretagne">
+    <!-- Ligne 3 : Bretagne -> Marcel Paul -->
+    <section class="transit-card card-l3 card-tram-br">
         <div class="card-header">
             <div class="line-info">
-                <div class="badge badge-l3">L3</div>
+                <div class="badge badge-l3">3</div>
                 <div class="destination-details">
                     <div class="destination-name">Marcel Paul</div>
                     <div class="stop-point">Arrêt : Bretagne</div>
                 </div>
             </div>
-            <div class="status-badge" id="status-bretagne">Chargement...</div>
+            <div class="status-badge" id="status-br">Chargement...</div>
         </div>
         <div class="siel-display">
-            <div class="passage-secondary" id="bretagne-sec-box">
+            <div class="passage-secondary" id="br-sec-box">
                 <span class="passage-label">2e Passage</span>
                 <div class="secondary-time">
-                    <span id="bretagne-p2-min">--</span>
-                    <span class="secondary-unit" id="bretagne-p2-unit">min</span>
+                    <span id="br-p2-min">--</span>
+                    <span class="secondary-unit" id="br-p2-unit">min</span>
                 </div>
-                <div class="clock-times" id="bretagne-p2-time">--:--</div>
+                <div class="clock-times" id="br-p2-time">--:--</div>
             </div>
-            <div class="divider" id="bretagne-divider"></div>
+            <div class="divider" id="br-divider"></div>
             <div class="passage-primary">
                 <span class="passage-label" style="color: #cbd5e1;">Prochain Passage</span>
-                <div class="primary-time-wrapper" id="bretagne-p1-wrapper">
-                    <span class="primary-time realtime" id="bretagne-p1-min">--</span>
-                    <span class="primary-unit realtime" id="bretagne-p1-unit">min</span>
+                <div class="primary-time-wrapper" id="br-p1-wrapper">
+                    <span class="primary-time realtime" id="br-p1-min">--</span>
+                    <span class="primary-unit realtime" id="br-p1-unit">min</span>
                 </div>
-                <div class="clock-times" id="bretagne-p1-time">--:--</div>
+                <div class="clock-times" id="br-p1-time">--:--</div>
             </div>
         </div>
     </section>
@@ -193,8 +194,8 @@ body {
 //  2. le flux GTFS-RT, lu directement par le navigateur (temps réel frais, sans passer par GitHub)
 // Si la lecture directe échoue (réseau, 429, CORS), on garde les données du JSON.
 // ---------------------------------------------------------------------------
-const CARDS = ['l3', 'bretagne'];
-const DEFAULT_LIGNES = { l3: '3', bretagne: '3' };
+const CARDS = ['pl', 'br'];
+const DEFAULT_LIGNES = { pl: '3', br: '3' };
 const RT_URL = new URLSearchParams(location.search).get('rt') ||
     'https://proxy.transport.data.gouv.fr/resource/naolib-nantes-gtfs-rt-trip-update';
 const JSON_STALE_MS = 15 * 60 * 1000;   // JSON du workflow considéré périmé au-delà
@@ -203,7 +204,7 @@ const RT_REFRESH_MS = 30000;
 const NB_DEPARTS = 8;
 
 let payload = null;        // horaires.json
-let live = null;           // { fetchedAt, data:{l3:[...], bretagne:[...]} } issu du flux direct
+let live = null;           // { fetchedAt, data:{l2:[...]} } issu du flux direct
 let rtSkip = 0;            // cycles à sauter après une erreur (évite de marteler le serveur)
 
 // ---- décodeur protobuf minimal (GTFS-RT) ----
@@ -312,10 +313,7 @@ async function loadLive() {
         const now = Date.now(), lignes = payload.lignes || DEFAULT_LIGNES, data = {};
         CARDS.forEach(k => {
             const th = payload.theorique[k];
-            if (!th) {
-                data[k] = payload.data[k] || [];
-                return;
-            }
+            if (!th) return;   // JSON pas encore régénéré avec la nouvelle config
             data[k] = mergeCard(lignes[k], th.departs, rt, th.quais, now);
         });
         live = { fetchedAt: now, feedMs: rt.feedTs ? rt.feedTs * 1000 : now, data };

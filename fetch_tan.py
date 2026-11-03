@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Génère horaires.json pour le panneau Naolib (tram 3 vers Neustrie).
+Génère horaires.json pour le panneau Naolib (tram 3 : Plaisance et Bretagne).
 
   - Temps réel   : flux GTFS-RT "trip-updates" (public, sans clé)
   - Théorique    : GTFS officiel Naolib (téléchargé, mis en cache dans horaires.json)
@@ -27,8 +27,8 @@ from zoneinfo import ZoneInfo
 # CONFIGURATION : seul endroit à modifier pour changer d'arrêt / de ligne
 # ----------------------------------------------------------------------------
 CARTES = {
-    "l3": {"ligne": "3", "arret": "Plaisance", "destination": "Neustrie"},
-    "bretagne": {"ligne": "3", "arret": "Bretagne", "destination": "Marcel Paul"},
+    "pl": {"ligne": "3", "arret": "Plaisance", "destination": "Neustrie"},
+    "br": {"ligne": "3", "arret": "Bretagne", "destination": "Marcel Paul"},
 }
 
 RT_URL = os.environ.get(
