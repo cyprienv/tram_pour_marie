@@ -28,7 +28,7 @@ from zoneinfo import ZoneInfo
 # ----------------------------------------------------------------------------
 CARTES = {
     "l3": {"ligne": "3", "arret": "Plaisance", "destination": "Neustrie"},
-    "l3": {"ligne": "3", "arret": "Bretagne", "destination": "Marcel Paul"},
+    "bretagne": {"ligne": "3", "arret": "Bretagne", "destination": "Marcel Paul"},
 }
 
 RT_URL = os.environ.get(
